@@ -7,20 +7,20 @@
 
 - name: "Create software directory under root homedir, if it does not exist"
   ansible.builtin.file:
-    path: "/root/software/{{ package_name.split('.zip')[0] }}"
+    path: "/root/software/{{ package_name.split('.tar')[0] }}"
     state: directory
 
 - name: "Download installer package from local repository"
   ansible.builtin.unarchive:
     src: "{{ software_url }}/{{ package_name }}"
     dest: "/root/software/"
-    creates: "/root/software/{{ package_name.split('.zip')[0] }}/install"
+    creates: "/root/software/{{ package_name.split('.tar')[0] }}/install"
     remote_src: yes
     validate_certs: no
 
 #- name: "Change the execute permissions of the installer script"
 #  ansible.builtin.file:
-#    path: "/root/software/{{ package_name.split('.zip')[0] }}/install"
+#    path: "/root/software/{{ package_name.split('.tar')[0] }}/install"
 #    owner: root
 #    group: root
 #    mode: 0777
@@ -29,5 +29,5 @@
 - name: "Install NetBackup Client, if not already installed"
   command: ./install
   args:
-    chdir: "/root/software/{{ package_name.split('.zip')[0] }}/"
+    chdir: "/root/software/{{ package_name.split('.tar')[0] }}/"
     #creates: /opt/TIDAL/Agent/bin/tagent
