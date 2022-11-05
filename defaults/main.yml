@@ -1,4 +1,7 @@
 ---
 # defaults file for ansible-role-netbackup-client/
+
 software_url: "http://www.example.org"
 package_name: "netbackup-client.tar"
+
+master_server: mymaster.example.org

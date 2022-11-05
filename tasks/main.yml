@@ -1,5 +1,6 @@
 ---
 # tasks file for ansible-role-netbackup-client/
+
 - name: "Gather the package facts"
   ansible.builtin.package_facts:
     manager: auto
@@ -7,14 +8,14 @@
 
 - name: "Create software directory under root homedir, if it does not exist"
   ansible.builtin.file:
-    path: "/root/software/{{ package_name.split('.tar')[0] }}"
+    path: "/root/software/netbackup"
     state: directory
 
 - name: "Download installer package from local repository"
   ansible.builtin.unarchive:
     src: "{{ software_url }}/{{ package_name }}"
-    dest: "/root/software/"
-    creates: "/root/software/{{ package_name.split('.tar')[0] }}/install"
+    dest: "/root/software/netbackup/"
+    creates: "/root/software/netbackup/install"
     remote_src: yes
     validate_certs: no
 
@@ -29,5 +30,5 @@
 - name: "Install NetBackup Client, if not already installed"
   command: ./install
   args:
-    chdir: "/root/software/{{ package_name.split('.tar')[0] }}/"
+    chdir: "/root/software/netbackup/"
     #creates: /opt/TIDAL/Agent/bin/tagent
